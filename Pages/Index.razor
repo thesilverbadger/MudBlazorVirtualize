@@ -1,0 +1,64 @@
+﻿@page "/"
+
+<MudExpansionPanels MultiExpansion="true" Class="mt-3">
+    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="true">
+        <MudGrid>
+            <Virtualize Items="@Items" Context="item" ItemSize="270" OverscanCount="10">
+                <ItemContent>
+                    <MudItem xs="4" Class="mb-3">
+                        <MudCard>
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Typo="Typo.h6">@(item.Name.Length > 11 ? item.Name.Substring(0, 11) : item.Name)</MudText>
+                                    <MudText Typo="Typo.subtitle2">(@item.PartnerName)</MudText>
+                                </CardHeaderContent>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudText Typo="Typo.body2">Expiration Date: @(string.IsNullOrEmpty(item.ExpirationDateFormatted) ? "N/A" : item.ExpirationDateFormatted)</MudText>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudButton Variant="Variant.Text" Color="Color.Primary" Class="ml-auto">Manage LOA</MudButton>
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem>
+                </ItemContent>
+            </Virtualize>
+
+    </MudGrid>
+    </MudExpansionPanel>
+</MudExpansionPanels>
+
+
+@code {
+    protected List<Data> Items = new();
+
+    protected List<Data> MoreItems = new();
+
+    protected override void OnInitialized()
+    {
+        for (var i = 0; i < 1000; i++)
+        {
+            Items.Add(new Data(Guid.NewGuid(), i));
+
+            MoreItems.Add(new Data(Guid.NewGuid(), i));
+        }
+    }
+
+    public class Data
+    {
+        public string Name { get; set; }
+
+        public int Index { get; }
+
+        public string PartnerName{ get; }
+
+        public string ExpirationDateFormatted{ get; }
+
+        public Data(Guid id, int index)
+        {
+            Name = $"Name: {id}";
+            Index = index;
+            PartnerName = $"Partner {index}";
+        }
+    }
+}
