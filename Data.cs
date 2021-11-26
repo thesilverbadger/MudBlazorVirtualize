@@ -1,6 +1,6 @@
 ﻿namespace MudBlazorVirtualize
 {
-    public class Data
+    public class Item
     {
         public string Name { get; set; }
 
@@ -18,7 +18,7 @@
 
         public string Field5 { get; }
 
-        public Data(int index)
+        public Item(int index)
         {
             Name = $"Name: {index}";
             Index = index;
@@ -28,6 +28,33 @@
             Field3 = $"Lorum Ipsum {Index}";
             Field4 = $"Lorum Ipsum {Index}";
             Field5 = $"Lorum Ipsum {Index}";
+        }
+    }
+
+    public static class Data
+    {
+        private static List<Item> _items;
+
+        public static List<Item> Items
+        {
+            get
+            { 
+                if( _items == null)
+                {
+                    _items = new List<Item>();
+
+                    _items.Add(new Item(0));
+
+                    for (var i = 1; i < 1000; i++)
+                    {
+                        _items.Add(new Item(i));
+                    }
+
+                    _items = _items.OrderBy(x => x.Index).ToList();
+                }
+
+                return _items;
+            }
         }
     }
 }

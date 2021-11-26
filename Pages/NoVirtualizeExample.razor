@@ -34,25 +34,10 @@
 
 
 @code {
-    protected List<Data> Items = new();
-
-    protected List<Data> MoreItems = new();
+    protected List<Item> Items;
 
     protected override void OnInitialized()
     {
-
-        Items.Add(new Data(0));
-
-        MoreItems.Add(new Data(0));
-
-        for (var i = 1; i < 1000; i++)
-        {
-            Items.Add(new Data(i));
-
-            MoreItems.Add(new Data(i));
-        }
-
-        Items = Items.OrderBy(x => x.Index).ToList();
-        MoreItems = MoreItems.OrderBy(x => x.Index).ToList();
+        Items = Data.Items;
     }
 }
