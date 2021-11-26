@@ -1,10 +1,12 @@
 ﻿@page "/MudVirtualizeExample"
 
+<h1>Mud Virtualize Example</h1>
+
 <MudExpansionPanels MultiExpansion="true" Class="mt-3">
     <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="true">
         <MudGrid>
             <MudVirtualize Items="@Items" Context="item">
-                
+                <ChildContent>
                     <MudItem xs="4" Class="mb-3">
                         <MudCard>
                             <MudCardHeader>
@@ -14,14 +16,18 @@
                                 </CardHeaderContent>
                             </MudCardHeader>
                             <MudCardContent>
-                                <MudText Typo="Typo.body2">Expiration Date: @(string.IsNullOrEmpty(item.ExpirationDateFormatted) ? "N/A" : item.ExpirationDateFormatted)</MudText>
+                                <MudText Typo="Typo.body2">Field1: @item.Field1</MudText>
+                                <MudText Typo="Typo.body2">Field2: @item.Field2</MudText>
+                                <MudText Typo="Typo.body2">Field3: @item.Field3</MudText>
+                                <MudText Typo="Typo.body2">Field4: @item.Field4</MudText>
+                                <MudText Typo="Typo.body2">Field5: @item.Field5</MudText>
                             </MudCardContent>
                             <MudCardActions>
-                                <MudButton Variant="Variant.Text" Color="Color.Primary" Class="ml-auto">Manage LOA</MudButton>
+                                <MudButton Variant="Variant.Text" Color="Color.Primary" Class="ml-auto">Manage</MudButton>
                             </MudCardActions>
                         </MudCard>
                     </MudItem>
-
+                </ChildContent>
             </MudVirtualize>
         </MudGrid>
     </MudExpansionPanel>
@@ -36,36 +42,18 @@
     protected override void OnInitialized()
     {
 
-        Items.Add(new Data("-- AAAAAA First One", 0));
+        Items.Add(new Data(0));
 
-        MoreItems.Add(new Data("-- AAAAAA First One", 0));
+        MoreItems.Add(new Data(0));
 
         for (var i = 1; i < 1000; i++)
         {
-            Items.Add(new Data(Guid.NewGuid().ToString(), i));
+            Items.Add(new Data(i));
 
-            MoreItems.Add(new Data(Guid.NewGuid().ToString(), i));
+            MoreItems.Add(new Data(i));
         }
 
-        Items = Items.OrderBy(x => x.Name).ToList();
-        MoreItems = MoreItems.OrderBy(x => x.Name).ToList();
-    }
-
-    public class Data
-    {
-        public string Name { get; set; }
-
-        public int Index { get; }
-
-        public string PartnerName{ get; }
-
-        public string ExpirationDateFormatted{ get; }
-
-        public Data(string id, int index)
-        {
-            Name = $"Name: {id}";
-            Index = index;
-            PartnerName = $"Partner {index}";
-        }
+        Items = Items.OrderBy(x => x.Index).ToList();
+        MoreItems = MoreItems.OrderBy(x => x.Index).ToList();
     }
 }
