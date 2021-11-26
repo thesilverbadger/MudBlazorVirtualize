@@ -1,7 +1,7 @@
 ﻿@page "/NoVirtualizeExample"
 
 <MudExpansionPanels MultiExpansion="true" Class="mt-3">
-    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="false">
+    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="true">
         <MudGrid>
             @foreach(var item in Items)
             {
@@ -34,12 +34,20 @@
 
     protected override void OnInitialized()
     {
-        for (var i = 0; i < 1000; i++)
-        {
-            Items.Add(new Data(Guid.NewGuid(), i));
 
-            MoreItems.Add(new Data(Guid.NewGuid(), i));
+        Items.Add(new Data("-- AAAAAA First One", 0));
+
+        MoreItems.Add(new Data("-- AAAAAA First One", 0));
+
+        for (var i = 1; i < 1000; i++)
+        {
+            Items.Add(new Data(Guid.NewGuid().ToString(), i));
+
+            MoreItems.Add(new Data(Guid.NewGuid().ToString(), i));
         }
+
+        Items = Items.OrderBy(x => x.Name).ToList();
+        MoreItems = MoreItems.OrderBy(x => x.Name).ToList();
     }
 
     public class Data
@@ -52,7 +60,7 @@
 
         public string ExpirationDateFormatted{ get; }
 
-        public Data(Guid id, int index)
+        public Data(string id, int index)
         {
             Name = $"Name: {id}";
             Index = index;

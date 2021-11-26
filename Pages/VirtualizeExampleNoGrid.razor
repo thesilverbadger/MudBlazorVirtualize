@@ -1,11 +1,11 @@
 ﻿@page "/VirtualizeExampleNoGrid"
 
 <MudExpansionPanels MultiExpansion="true" Class="mt-3">
-    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="false">
+    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="true">
 
-            <Virtualize Items="@Items" Context="item" ItemSize="270" OverscanCount="10">
+            <Virtualize Items="@Items" Context="item" ItemSize="190" OverscanCount="10">
                 <ItemContent>
-                    <MudItem xs="4" Class="mb-3">
+                    <MudItem xs="12" Class="mb-3">
                         <MudCard>
                             <MudCardHeader>
                                 <CardHeaderContent>
@@ -35,12 +35,20 @@
 
     protected override void OnInitialized()
     {
-        for (var i = 0; i < 1000; i++)
-        {
-            Items.Add(new Data(Guid.NewGuid(), i));
 
-            MoreItems.Add(new Data(Guid.NewGuid(), i));
+        Items.Add(new Data("-- AAAAAA First One", 0));
+
+        MoreItems.Add(new Data("-- AAAAAA First One", 0));
+
+        for (var i = 1; i < 1000; i++)
+        {
+            Items.Add(new Data(Guid.NewGuid().ToString(), i));
+
+            MoreItems.Add(new Data(Guid.NewGuid().ToString(), i));
         }
+
+        Items = Items.OrderBy(x => x.Name).ToList();
+        MoreItems = MoreItems.OrderBy(x => x.Name).ToList();
     }
 
     public class Data
@@ -53,7 +61,7 @@
 
         public string ExpirationDateFormatted{ get; }
 
-        public Data(Guid id, int index)
+        public Data(string id, int index)
         {
             Name = $"Name: {id}";
             Index = index;
