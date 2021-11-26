@@ -2,36 +2,31 @@
 
 <h1>Virtualize Example No Grid</h1>
 
-<MudExpansionPanels MultiExpansion="true" Class="mt-3">
-    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="true">
 
-            <Virtualize Items="@Items" Context="item" ItemSize="190" OverscanCount="10">
-                <ItemContent>
-                    <MudItem xs="12" Class="mb-3">
-                        <MudCard>
-                            <MudCardHeader>
-                                <CardHeaderContent>
-                                    <MudText Typo="Typo.h6">@(item.Name.Length > 11 ? item.Name.Substring(0, 11) : item.Name)</MudText>
-                                    <MudText Typo="Typo.subtitle2">(@item.PartnerName)</MudText>
-                                </CardHeaderContent>
-                            </MudCardHeader>
-                            <MudCardContent>
-                                <MudText Typo="Typo.body2">Field1: @item.Field1</MudText>
-                                <MudText Typo="Typo.body2">Field2: @item.Field2</MudText>
-                                <MudText Typo="Typo.body2">Field3: @item.Field3</MudText>
-                                <MudText Typo="Typo.body2">Field4: @item.Field4</MudText>
-                                <MudText Typo="Typo.body2">Field5: @item.Field5</MudText>
-                            </MudCardContent>
-                            <MudCardActions>
-                                <MudButton Variant="Variant.Text" Color="Color.Primary" Class="ml-auto">Manage</MudButton>
-                            </MudCardActions>
-                        </MudCard>
-                    </MudItem>
-                </ItemContent>
-            </Virtualize>
-
-    </MudExpansionPanel>
-</MudExpansionPanels>
+<Virtualize Items="@Items" Context="item" ItemSize="190" OverscanCount="10">
+    <ItemContent>
+        <MudItem xs="12" Class="mb-3">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@(item.Name.Length > 11 ? item.Name.Substring(0, 11) : item.Name)</MudText>
+                        <MudText Typo="Typo.subtitle2">(@item.PartnerName)</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">Field1: @item.Field1</MudText>
+                    <MudText Typo="Typo.body2">Field2: @item.Field2</MudText>
+                    <MudText Typo="Typo.body2">Field3: @item.Field3</MudText>
+                    <MudText Typo="Typo.body2">Field4: @item.Field4</MudText>
+                    <MudText Typo="Typo.body2">Field5: @item.Field5</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" Class="ml-auto">Manage</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </ItemContent>
+</Virtualize>
 
 
 @code {
