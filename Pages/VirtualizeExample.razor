@@ -1,7 +1,7 @@
 ﻿@page "/"
 
 <MudExpansionPanels MultiExpansion="true" Class="mt-3">
-    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="true">
+    <MudExpansionPanel Text="@($"Expired ({Items.Count})")" IsInitiallyExpanded="false">
         <MudGrid>
             <Virtualize Items="@Items" Context="item" ItemSize="270" OverscanCount="10">
                 <ItemContent>
